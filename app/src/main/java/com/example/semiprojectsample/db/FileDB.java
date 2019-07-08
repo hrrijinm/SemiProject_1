@@ -35,6 +35,29 @@ public class FileDB {
         editor.commit();
     }
 
+    public static void setMember(Context context, MemberBean memberBean){
+       //전체 멤버리스트를 받는다.
+        List<MemberBean> memberList = getMemberList(context);
+        if(memberList.size() == 0)
+            return ;
+
+        for(int i =0; i<memberList.size();i++){
+            MemberBean bean = memberList.get(i);
+            if(TextUtils.equals(bean.memId, memberBean.memId)){
+                //같은 멤버ID를 찾았다.
+                memberList.set(i, memberBean);
+                break;
+            }
+        }
+
+        //새롭게 update 된 리스트를 저장한다.
+        String jsonStr = mGson.toJson(memberList);
+        //멤버 리스트를 저장한다.
+        SharedPreferences.Editor editor = getSP(context).edit();
+        editor.putString("memberList", jsonStr);
+        editor.commit();
+    }
+
     public static List<MemberBean> getMemberList(Context context) {
         String listStr = getSP(context).getString("memberList", null);
         //저장된 리스트가 없을 경우에 새로운 리스트를 리턴한다.
