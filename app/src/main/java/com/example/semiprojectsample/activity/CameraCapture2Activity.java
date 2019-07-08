@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 4.4 kitkat 까지 지원하는 카메라 예제.
+ * 4.4 kitkat 까지 지원하는 카메라 예제.///
  */
 public class CameraCapture2Activity extends AppCompatActivity {
 
