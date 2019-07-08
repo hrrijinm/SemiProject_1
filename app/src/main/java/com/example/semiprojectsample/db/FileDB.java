@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.semiprojectsample.bean.MemberBean;
+import com.example.semiprojectsample.bean.MemoBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -101,7 +102,46 @@ public class FileDB {
         return memberBean;
     }
 
+    //메모를 추가하는 메소드
+    public static void addMemo(Context context, String memId, MemoBean memoBean){
+        MemberBean findMember = getFindMember(context, memId);
+        if(findMember == null) return;
 
+        List<MemoBean> memoList = findMember.memoList;
+        if(memoList == null){
+            memoList = new ArrayList<>();
+        }
+        //고유 메모 ID를 생설해준다.
+        memoBean.memoId = memoList.size() + 1;
+        memoList.add(memoBean);
+        findMember.memoList = memoList;
+        //저장
+        setMember(context, findMember);
+    }
 
+    //기존 메모 교체
+    public static void setMemo(Context context, String memId, MemoBean memoBean){
 
-}
+        //스스로 작성!!
+    }
+    //메모 삭제
+    public static void delMemo(Context context, String memId, int memoId){
+        //스스로
+
+    }
+    //메모리스트 취득
+    public static List<MemoBean> getMemoList(Context context, String memId){
+        MemberBean memberBean = getFindMember(context, memId);
+        if(memberBean == null) return null;
+
+        if(memberBean.memoList == null) {
+            return new ArrayList<>();
+        }
+        else{
+            return memberBean.memoList;
+
+        }
+        }
+
+    }
+
